@@ -14,11 +14,6 @@ RSpec.describe Game, type: :model do
     dictionary.words.create!(word: "AT")
   end
 
-  describe "fields" do
-    it { should have_db_column(:word).of_type(:string) }
-    it { should have_db_column(:lives).of_type(:integer) }
-  end
-
   describe "#create" do
     context "with a correct arguments" do
       it "sets #lives_remaining to the correct number of lives" do

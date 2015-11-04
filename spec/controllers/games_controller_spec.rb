@@ -19,7 +19,7 @@ RSpec.describe GamesController, type: :controller do
     it 'has 5 games' do
       expect(Game.all.count).to eq 5
     end
-    
+
     it { should respond_with(200) }
     it { should render_template(:index) }
     it "should assign @games to all Games in DB" do
@@ -50,14 +50,33 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "#create" do
-    before do
-      @game_params = {lives: lives, word: word}
-      post :create, {game: @game_params}
+    context "valid params" do
+      before do
+        @game_params = { lives: lives, word: word }
+        post :create, { game: @game_params }
+      end
+
+      it { should respond_with(302) }
+      it "should redirect to the new game's page" do
+        game = Game.find_by(@game_params)
+        expect(response).to redirect_to("/games/#{game.id}")
+      end
+      it "creates a new game with specified params" do
+        expect(Game.find_by(@game_params)).to be_truthy
+      end
     end
 
-    it { should respond_with(302) }
-    it "should redirect to the new game's page" do
+    context "invalid params" do
+      before do
+        @invalid_game_params = { lives: 0, word: 1 }
+        post :create, { game: @invalid_game_params }
+      end
 
+      it { should respond_with(400) }
+      it { should render_template(:new) }
+      it "should not create a new game" do
+        expect(Game.find_by(@invalid_game_params)).to be_nil
+      end
     end
   end
 
