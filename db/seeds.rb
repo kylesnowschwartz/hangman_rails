@@ -1,9 +1,8 @@
 # create a dictionary and populate it with words
-# beginning_time = Time.now
+beginning_time = Time.now
 
 # dictionary = Dictionary.create!(title: "test dictionary")
-
-# path = File.join(Rails.root, 'lib', 'assets', 'words')
+path = File.join(Rails.root, 'lib', 'assets', 'words')
 
 # File.open(path, "r") do |f|
 #   ActiveRecord::Base.transaction do
@@ -15,9 +14,6 @@
 #   end
 # end
 
-# end_time = Time.now
-# puts "Time elapsed #{(end_time - beginning_time)*1000} milliseconds"
-
 
 # File.open(path, "r") do |f|
 #   lines = File.foreach(path, "r").first(1000)
@@ -25,6 +21,19 @@
 #     Word.create(word: line.upcase.chomp, dictionary: test_dictionary)
 #   end
 # end
+
+File.readlines(path, "r") do |lines|
+  words = lines
+    .map { |line| line.chomp.upcase }
+    .map { |word| Word.new(word: word) }
+
+  Dictionary.create!(title: "test dictionary", words: words)
+end
+
+
+end_time = Time.now
+puts "Time elapsed #{(end_time - beginning_time)*1000} milliseconds"
+
 
 # for first 1000 lines
 # in console: Time elapsed 5866.023 milliseconds

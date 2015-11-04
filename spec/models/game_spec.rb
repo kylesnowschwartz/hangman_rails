@@ -82,18 +82,18 @@ RSpec.describe Game, type: :model do
         expect(game.board).to eq(["_", "_", "_", "_", "_", "_"])
       end
     end
+  end
 
-    describe "#submit_guess" do
-      context "with a correct guess" do
-        it "returns true" do
-          expect(game.submit_guess("B")).to be true
-        end
+  describe "#submit_guess" do
+    context "with a correct guess" do
+      it "returns true" do
+        expect(game.submit_guess("B")).to be true
       end
+    end
 
-      context "with a incorrect guess" do
-        it "returns false" do
-          expect(game.submit_guess("Q")).to be false
-        end
+    context "with a incorrect guess" do
+      it "returns false" do
+        expect(game.submit_guess("Q")).to be false
       end
     end
   end
