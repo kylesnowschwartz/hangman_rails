@@ -7,17 +7,15 @@ RSpec.describe Game, type: :model do
   let(:correct_guess) { Guess.create(letter: "A", game: game) }
   let(:incorrect_guess) { Guess.create(letter: "Z", game: game) }
   let(:invalid_guess) { Guess.create(letter: 1, game: game) }
+  let(:dictionary) { Dictionary.create(title: "test dictionary") }
+
+  before do
+    dictionary.words.create!(word: "BANANA")
+  end
 
   describe "fields" do
     it { should have_db_column(:word).of_type(:string) }
     it { should have_db_column(:lives).of_type(:integer) }
-  end
-
-  xdescribe "validations" do
-    it { should validate_presence_of(:word) }
-    it { should validate_length_of(:word).is_at_least(3) }
-    it { should validate_presence_of(:lives) }
-    it { should validate_numericality_of(:lives).is_greater_than(0) }
   end
 
   describe "#create" do
@@ -35,13 +33,17 @@ RSpec.describe Game, type: :model do
       end
     end
 
-    context "with an incorrect arguments" do
+    xcontext "with an incorrect arguments" do
       it "raises an error when given 0 lives" do
-        expect { Game.create(lives: 0, word: "bottle") }.to raise_error("A game cannot be started with zero lives")
+        expect { Game.create!(lives: 0, word: "BOTTLE") }.to raise_error("A game cannot be started with zero lives")
+      end
+
+      it "raises an error when given a word not in the dictionary" do
+        expect { Game.create!(lives: lives, word: "ASDF123") }.to raise_error("This word is not in your dictionary")
       end
 
       it "raises an error when given a word less than 3 letters long" do
-        expect { Game.create(lives: 3, word: "at") }.to raise_error("Please choose a word of 3 or more letters")
+        expect { Game.create!(lives: 3, word: "AT") }.to raise_error("Please choose a word of 3 or more letters")
       end
     end
   end

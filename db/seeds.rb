@@ -1,14 +1,16 @@
 # create a dictionary and populate it with words
 beginning_time = Time.now
 
-dictionary = Dictionary.first
+dictionary = Dictionary.create!(title: "test dictionary")
 
 path = File.join(Rails.root, 'lib', 'assets', 'words')
 
 File.open(path, "r") do |f|
   ActiveRecord::Base.transaction do
     f.each_line do |line|
-      Word.create!(word: line.upcase.chomp, dictionary: dictionary)
+      if Word.create(word: line.upcase.chomp, dictionary: dictionary).valid?
+        Word.create!(word: line.upcase.chomp, dictionary: dictionary)
+      end
     end
   end
 end

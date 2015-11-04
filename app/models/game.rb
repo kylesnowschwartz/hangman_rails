@@ -4,6 +4,11 @@ class Game < ActiveRecord::Base
   validates_numericality_of :lives, greater_than: 0, message: "A game cannot be started with zero lives"
   validates_presence_of :lives
   validates_presence_of :word, length: { minimum: 3 }, message: "Please choose a word of 3 or more letters"
+  validate :word_must_be_in_dictionary
+
+  before_create do
+    self.word.upcase!
+  end
 
   def finished?
     zero_lives_remaining? || letters_remaining.empty?
@@ -43,6 +48,12 @@ class Game < ActiveRecord::Base
   end
 
   private
+
+  def word_must_be_in_dictionary
+    unless Dictionary.first.words.find_by_word!(self.word).valid?
+      errors.add(:word, "This word is not in your dictionary")
+    end
+  end
 
   def all_indexes_for_letter(letter) # presenter with board
     letters.each_index.select { |index| letters[index] == letter } # returns all indicies of given letter if there are duplicates, not just the first index

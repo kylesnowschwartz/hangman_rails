@@ -2,8 +2,13 @@ require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
   let(:lives) { 1 }
-  let(:word) { "word" }
+  let(:word) { "BANANA" }
   let(:game) { Game.create(lives: lives, word: word) }
+  let(:dictionary) { Dictionary.create(title: "test dictionary") }
+
+  before do
+    dictionary.words.create!(word: "BANANA")
+  end
 
   describe "#index" do
     before do 
