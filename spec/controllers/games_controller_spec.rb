@@ -12,10 +12,14 @@ RSpec.describe GamesController, type: :controller do
 
   describe "#index" do
     before do 
-      5.times { game }
+      5.times { Game.create(lives: lives, word: word) }
       get :index
     end
 
+    it 'has 5 games' do
+      expect(Game.all.count).to eq 5
+    end
+    
     it { should respond_with(200) }
     it { should render_template(:index) }
     it "should assign @games to all Games in DB" do
@@ -36,7 +40,25 @@ RSpec.describe GamesController, type: :controller do
     end
   end
 
+  describe "#new" do
+    before do
+      get :new
+    end
+
+    it { should respond_with(200) }
+    it { should render_template(:new) }
+  end
+
   describe "#create" do
+    before do
+      @game_params = {lives: lives, word: word}
+      post :create, {game: @game_params}
+    end
+
+    it { should respond_with(302) }
+    it "should redirect to the new game's page" do
+
+    end
   end
 
   describe "#destroy" do

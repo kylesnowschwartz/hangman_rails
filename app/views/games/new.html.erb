@@ -1,0 +1,13 @@
+<h1> Create a New Game </h1>
+
+<%= form_for :game, url: games_path do |f| %>
+    <p>
+      <%= f.label :lives %>
+      <%= f.text_field :lives %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+<% end %>
+
+<%= link_to 'back', games_path %>

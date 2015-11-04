@@ -11,6 +11,7 @@ RSpec.describe Game, type: :model do
 
   before do
     dictionary.words.create!(word: "BANANA")
+    dictionary.words.create!(word: "AT")
   end
 
   describe "fields" do
@@ -33,17 +34,23 @@ RSpec.describe Game, type: :model do
       end
     end
 
-    xcontext "with an incorrect arguments" do
+    context "with an incorrect arguments" do
       it "raises an error when given 0 lives" do
-        expect { Game.create!(lives: 0, word: "BOTTLE") }.to raise_error("A game cannot be started with zero lives")
+        game = Game.new(lives: 0, word: "BOTTLE")
+        game.validate
+        expect(game.errors[:lives]).to include("A game cannot be started with zero lives")
       end
 
       it "raises an error when given a word not in the dictionary" do
-        expect { Game.create!(lives: lives, word: "ASDF123") }.to raise_error("This word is not in your dictionary")
+        game = Game.new(lives: lives, word: "ASDF123")
+        game.validate
+        expect(game.errors[:word]).to include("This word is not in your dictionary")
       end
 
       it "raises an error when given a word less than 3 letters long" do
-        expect { Game.create!(lives: 3, word: "AT") }.to raise_error("Please choose a word of 3 or more letters")
+        game = Game.new(lives: 3, word: "AT")
+        game.validate
+        expect(game.errors[:word]).to include("Please choose a word of 3 or more letters")
       end
     end
   end
