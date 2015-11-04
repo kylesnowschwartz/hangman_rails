@@ -1,0 +1,10 @@
+<h1>Hangman</h1>
+
+<ul>
+  <% @games.each do |game| %>
+     <li>
+       <h2>Game <%= game.id %></h2>
+       <%= link_to "View This Game", game_path(game) %>
+     </li>
+   <% end %> 
+</ul>

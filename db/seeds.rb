@@ -1,10 +1,30 @@
-#create a dictionary and populate it with words
-# dictionary = Dictionary.create(title: "UNIX word list")
+# create a dictionary and populate it with words
+beginning_time = Time.now
 
-# path = File.join(Rails.root, 'lib', 'assets', 'words')
+dictionary = Dictionary.first
+
+path = File.join(Rails.root, 'lib', 'assets', 'words')
+
+File.open(path, "r") do |f|
+  ActiveRecord::Base.transaction do
+    f.each_line do |line|
+      Word.create!(word: line.upcase.chomp, dictionary: dictionary)
+    end
+  end
+end
+
+end_time = Time.now
+puts "Time elapsed #{(end_time - beginning_time)*1000} milliseconds"
+
 
 # File.open(path, "r") do |f|
-#   f.each_line do |line|
-#     Word.create(word: line, dictionary_id: dictionary.id)
+#   lines = File.foreach(path, "r").first(1000)
+#   lines.each do |line|
+#     Word.create(word: line.upcase.chomp, dictionary: test_dictionary)
 #   end
 # end
+
+# for first 1000 lines
+# in console: Time elapsed 5866.023 milliseconds
+# out of console:Time elapsed 1896.884 milliseconds
+#the whole things for some reason took Time elapsed 3692237.653 milliseconds
