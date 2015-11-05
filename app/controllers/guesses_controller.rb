@@ -5,6 +5,7 @@ class GuessesController < ApplicationController
     if @guess.save!
       redirect_to game_path(game)
     end
+    # TODO make this return a 400 and errors
   end
 
 
