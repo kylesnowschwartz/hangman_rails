@@ -22,7 +22,7 @@ RSpec.describe GamesController, type: :controller do
 
     it { should respond_with(200) }
     it { should render_template(:index) }
-    it "should assign @games to all Games in DB" do
+    it "assigns @games to all Games in DB" do
       expect(assigns(:games)).to eq(Game.all)
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe GamesController, type: :controller do
 
     it { should respond_with(200) }
     it { should render_template(:show) }
-    it "should assign game to specified id to @game" do
+    it "assigns game to specified id to @game" do
       expect(assigns(:game)).to eq(@game)
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe GamesController, type: :controller do
       end
 
       it { should respond_with(302) }
-      it "should redirect to the new game's page" do
+      it "redirects to the new game's page" do
         game = Game.find_by(@game_params)
         expect(response).to redirect_to("/games/#{game.id}")
       end
@@ -74,7 +74,7 @@ RSpec.describe GamesController, type: :controller do
 
       it { should respond_with(400) }
       it { should render_template(:new) }
-      it "should not create a new game" do
+      it "does not create a new game" do
         expect(Game.find_by(@invalid_game_params)).to be_nil
       end
     end
