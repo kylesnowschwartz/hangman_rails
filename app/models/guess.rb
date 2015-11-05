@@ -6,7 +6,7 @@ class Guess < ActiveRecord::Base
   validates_with GuessValidator
 
   before_validation do 
-    self.letter.upcase!
+    letter.upcase!
   end
 end
 

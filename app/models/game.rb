@@ -7,42 +7,16 @@ class Game < ActiveRecord::Base
   validates :word, length: { minimum: 3, too_short: "Please choose a word of 3 or more letters" }
   validate :word_must_be_in_dictionary
 
-  before_create do
+  before_validation do
+    if word.blank?
+      self.word = Dictionary.random_word
+    end
     word.upcase!
   end
 
   def finished?
     zero_lives_remaining? || letters_remaining.empty?
   end
-
-  # class SubmitGuess
-  #   def initialize(game, letter_to_guess)
-  #     @game = game
-  #     @letter_to_guess = letter_to_guess
-  #   end
-
-  #   def call
-  #     game.guesses.create!(letter: @letter_to_guess)
-
-  #     letters.include?(guess)
-  #   end
-  # end
-
-  # class GameStatus
-  #   def initalize(game)
-  #     @game = game
-  #   end
-
-  #   def in_progress?
-  #     game ....
-  #   end
-
-  #   def won?
-  #   end
-
-  #   def lost?
-  #   end
-  # end
 
   def submit_guess(guess)
     guesses.create(letter: guess)
@@ -69,14 +43,10 @@ class Game < ActiveRecord::Base
     guesses.pluck("letter")
   end
 
-  def random_word
-    Dictionary.first.words.all.sample.word
-  end
-
   private
 
   def word_must_be_in_dictionary
-    unless Dictionary.first.words.find_by_word(word.upcase)
+    unless Dictionary.first.words.find_by_word(word)
       errors.add(:word, "This word is not in your dictionary")
     end
   end
@@ -85,3 +55,53 @@ class Game < ActiveRecord::Base
     word.upcase.chars
   end
 end
+
+  # def won?
+  #   if @game.zero_lives_remaining?
+  #     @view.report_game_lost
+  #   else
+  #     @view.report_game_won
+  #   end
+  # end
+
+  # def take_turn
+  #   guess = @view.ask_for_letter
+    
+  #   if @game.submit_guess(guess)
+  #     @view.report_correct_guess
+  #   else
+  #     @view.report_incorrect_guess
+  #   end
+  # end
+
+  # examples of service model
+  #command:
+  # class SubmitGuess
+  #   def initialize(game, letter_to_guess)
+  #     @game = game
+  #     @letter_to_guess = letter_to_guess
+  #   end
+
+  #   def call
+  #     game.guesses.create!(letter: @letter_to_guess)
+
+  #     letters.include?(guess)
+  #   end
+  # end
+
+  #query:
+  # class GameStatus
+  #   def initalize(game)
+  #     @game = game
+  #   end
+
+  #   def in_progress?
+  #     game ....
+  #   end
+
+  #   def won?
+  #   end
+
+  #   def lost?
+  #   end
+  # end

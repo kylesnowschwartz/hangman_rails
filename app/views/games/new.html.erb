@@ -11,7 +11,11 @@
 <%= form_for :game, url: games_path do |f| %>
     <p>
       <%= f.label :lives %>
-      <%= f.text_field :lives %>
+      <%= f.text_field :lives, required: true, value: 6 %>
+    </p>    
+    <p>
+      <%= f.label :word %>
+      <%= f.text_field :word%>
     </p>
     <p>
       <%= f.submit %>
