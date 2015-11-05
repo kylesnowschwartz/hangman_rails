@@ -2,11 +2,12 @@
 
 <ul>
   <% @games.each do |game| %>
-     <li>
-       <h2>Game <%= game.id %></h2>
-       <%= link_to "View This Game", game_path(game) %>
-     </li>
-   <% end %> 
+    <li>
+      <h2> 
+        <%= link_to "Game #{game.id}", game_path(game) %> - <%= game.status %>
+      </h2>
+    </li>
+  <% end %> 
 </ul>
 
 <%= link_to 'start a new game', new_game_path %>

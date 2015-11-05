@@ -1,16 +1,33 @@
 <h1>Game <%= @game.id %></h1>
+
 <h2>Guessed Letters: <%= @game.guessed_letters %></h2>
 <h2>Lives Remaining: <%= @game.lives_remaining %></h2>
 <h2><%= @game.board %></h2>
 
-<%= form_for :guess, url: game_guesses_path(game_id: @game.id) do |f| %>
-    <p>
-      <%= f.label :letter %>
-      <%= f.text_field :letter, required: true %>
-    </p>    
-    <p>
-      <%= f.submit %>
-    </p>
+<% if @game.zero_lives_remaining? %>
+  <h2>
+    The word was: <%= @game.word %>
+  </h2>
+<% end %>
+
+<% unless @game.finished? %>
+  <%= form_for :guess, url: game_guesses_path(game_id: @game.id) do |f| %>
+      <p>
+        <%= f.label :letter %>
+        <%= f.text_field :letter, required: true %>
+      </p>    
+      <p>
+        <%= f.submit %>
+      </p>
+  <% end %>
+<% end %>
+
+<% if flash[:alert] %>
+  <ul>
+    <% flash[:alert].each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <%= link_to 'Back to Index', games_path %>

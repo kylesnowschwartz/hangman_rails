@@ -4,10 +4,13 @@ A User may:
   *make a new game
     specify difficulty of the game
       so that they can stay challenged and engaged
-    *assign a random word of that difficulty
+    *assign a random word 
+      of that difficulty
       so that they can play by themselves
     choose a word of their own
       so that they can challenge someone else
+    Add a word to the dictionary
+      in case a word is not in the dictionary
     choose the # of lives for their game, which defaults to 6
       so that they can make the game more or less challenging
   
@@ -25,6 +28,8 @@ A User may:
 
   Today: 
 
-  I'd like to build a feature test that "plays" the game and passes 
-
   then build capyara tests that goes to the index, makes a new game, and makes a guess
+
+  TODO error if guessing the same letter twice
+
+  TODO don't accept guesses if game is finished
