@@ -14,15 +14,18 @@ RSpec.describe Game do
       expect(game.board).to eq(["_", "_", "_", "_", "_", "_"])
       expect(game.guessed_letters).to eq([])
 
-      expect(game.submit_guess("A")).to be true
+      expect{ game.submit_guess("A") }.to change{ Guess.count }.by 1
+      expect(game.correct_guess?("A")).to be true
       expect(game.board).to eq(["_", "A", "_", "A", "_", "A"])
       expect(game.guessed_letters).to eq(["A"])
 
-      expect(game.submit_guess("B")).to be true
+      expect{ game.submit_guess("B") }.to change{ Guess.count }.by 1
+      expect(game.correct_guess?("B")).to be true
       expect(game.board).to eq(["B", "A", "_", "A", "_", "A"])
       expect(game.guessed_letters).to eq(["A", "B"])
 
-      expect(game.submit_guess("N")).to be true
+      expect{ game.submit_guess("N") }.to change{ Guess.count }.by 1
+      expect(game.correct_guess?("N")).to be true
       expect(game.board).to eq(["B", "A", "N", "A", "N", "A"])
       expect(game.guessed_letters).to eq(["A", "B", "N"])
 
@@ -36,7 +39,8 @@ RSpec.describe Game do
       expect(game.board).to eq(["_", "_", "_", "_", "_", "_"])
       expect(game.guessed_letters).to eq([])
 
-      expect(game.submit_guess("Z")).to be false
+      expect{ game.submit_guess("Z") }.to change{ Guess.count }.by 1
+      expect(game.correct_guess?("Z")).to be false
       expect(game.board).to eq(["_", "_", "_", "_", "_", "_"])
       expect(game.guessed_letters).to eq(["Z"])
 

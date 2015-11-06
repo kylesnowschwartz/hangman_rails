@@ -1,31 +1,40 @@
-A User may:
-  create an account and login
-    so that they may keep a record of past and current games
-  *make a new game
-    specify difficulty of the game
-      so that they can stay challenged and engaged
-    *assign a random word 
-      of that difficulty
-      so that they can play by themselves
-    choose a word of their own
-      so that they can challenge someone else
-    Add a word to the dictionary
-      in case a word is not in the dictionary
-    choose the # of lives for their game, which defaults to 6
-      so that they can make the game more or less challenging
-  
-  *view a list of their games
-    view which games are in progress/won/lost
-    view their win percentage
-  *view a specific game
-    *see their past guesses
-    *see the board
-    see a stick-figure graphic
-    *see their lives remaining
-  *make a guess
-    see a message that tells them if their guess is correct or incorrect
-    see a message that tells them if their guess is not a valid guess
-
+As a user:
+  I want to create an account
+    so that I may keep a record of past and current games
+  I want to authenticate myself with a password
+    so that only I can access my data
+  I want to make a new game
+    so that I can play more than 1 game
+  I want to specify the difficulty of the game
+    so that I can stay challenged and engaged
+  I want to be able to assign a random word to my game
+    so that I can play by myself
+  I want to be able to choose a word of my own
+    so that I can challenge someone else
+  I want to be able to Add a word to the dictionary
+    so that I can play hangman with that word
+  I want to be able to choose the # of lives for my game
+    so that I can make the game more or less challenging
+  I want to view a list of my current games
+    so that I can have multiple games active at one time
+  I want to know my win percentage
+    so that I can track my success over time and I am incentivized to improve
+  I want to see my past guesses for an individual game
+    So that I don't guess the same thing twice
+  I want to see the board
+    so that I can more easily fill in the blanks
+  I want to see the board to change after I make a valid and correct guess
+    so that I know what the fuck has happened
+  I want to see my lives remaining
+    so that I am incentivized to make better guesses
+  I want to see a stick-figure graphic
+    so that I can empathize with the character and contemplate its empending doom
+  I want to enter a name
+    so that the stickman or woman can have a name
+  I want to guess a letter
+    so that I can complete the unknown word 
+  I would like to see a message if I make an invalid guess
+    so that I learn the difference btw valid & invalid guesses
   Today: 
 
   then build capyara tests that goes to the index, makes a new game, and makes a guess

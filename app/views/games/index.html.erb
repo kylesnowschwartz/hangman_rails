@@ -2,11 +2,13 @@
 
 <ul>
   <% @games.each do |game| %>
-    <li>
-      <h2> 
-        <%= link_to "Game #{game.id}", game_path(game) %> - <%= game.status %>
-      </h2>
-    </li>
+    <% unless game.finished?  %>
+      <li>
+        <h2> 
+          <%= link_to "Game #{game.id}", game_path(game) %>
+        </h2>
+      </li>
+    <% end %>
   <% end %> 
 </ul>
 

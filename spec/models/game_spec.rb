@@ -86,14 +86,14 @@ RSpec.describe Game, type: :model do
 
   describe "#submit_guess" do
     context "with a correct guess" do
-      it "returns true" do
-        expect(game.submit_guess("B")).to be true
+      it "increases the guess count by 1" do
+        expect{ game.submit_guess("B") }.to change{ Guess.count }.by 1
       end
     end
 
     context "with a incorrect guess" do
-      it "returns false" do
-        expect(game.submit_guess("Q")).to be false
+      it "does not increase the guess count" do
+        expect{ game.submit_guess("Q") }.to change{ Guess.count }.by 1
       end
     end
   end

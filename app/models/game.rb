@@ -18,19 +18,11 @@ class Game < ActiveRecord::Base
     zero_lives_remaining? || letters_remaining.empty?
   end
 
-  def status
-    if finished? && zero_lives_remaining?
-      "Lost"
-    elsif finished? && letters_remaining.empty?
-      "Won!"
-    else
-      "In Progress"
-    end
+  def submit_guess(guess)
+    guesses.create!(letter: guess)
   end
 
-  # TODO make this single responsibility. 
-  def submit_guess(guess)
-    guesses.create(letter: guess)
+  def correct_guess?(guess)
     letters.include?(guess)
   end
 
@@ -38,8 +30,8 @@ class Game < ActiveRecord::Base
     lives_remaining <= 0
   end
 
-  def lives_remaining # TODO - def incorrect_guesses
-    lives - (guessed_letters - letters).count
+  def lives_remaining
+    lives - incorrect_guesses.count
   end
 
   def letters_remaining
@@ -52,6 +44,10 @@ class Game < ActiveRecord::Base
 
   def guessed_letters
     guesses.pluck("letter")
+  end
+
+  def incorrect_guesses
+    guessed_letters - letters
   end
 
   private

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Guess, type: :model do
   let(:game) { Game.create!(lives: 1, word: "BANANA") }
   let(:character) { "A" }
-  let(:guess) { Guess.create!(game: game, letter: character) }
+  let(:guess) { Guess.new(game: game, letter: character) }
   let(:invalid_guess) { Guess.new(game: game, letter: character) }
 
   before do
@@ -20,8 +20,8 @@ RSpec.describe Guess, type: :model do
 
     context "guess a lowercase letter in the alphabet" do
       let(:character) { "a" }
-      it "creates a valid guess" do
-        expect(guess).to be_valid
+      it "does not create a valid guess" do
+        expect(guess).to be_invalid
       end
     end
 
