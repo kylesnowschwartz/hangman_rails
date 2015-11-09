@@ -20,8 +20,8 @@ RSpec.describe GamesController, type: :controller do
       expect(Game.all.count).to eq 5
     end
 
-    it { should respond_with(200) }
-    it { should render_template(:index) }
+    it { expect(response.status).to eq 200 }
+    it { expect(response).to render_template(:index) }
     it "assigns @games to all Games in DB" do
       expect(assigns(:games)).to eq(Game.all)
     end

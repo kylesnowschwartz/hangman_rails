@@ -30,6 +30,11 @@ RSpec.describe GuessesController, type: :controller do
       it "creates a guess and saves it to the database" do
         expect{ post :create, { game_id: game.id, guess: guess_params } }. to change{ Guess.count }.by 1
       end
+
+      it "sets no error for the user" do
+        post :create, { game_id: game.id, guess: guess_params }
+        expect(flash[:alert]).to eq(nil)
+      end
     end
 
     context "with a lowercase letter" do
