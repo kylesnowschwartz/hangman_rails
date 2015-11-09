@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Game, type: :model do
   let(:word) { "BANANA" }
   let(:lives) { 1 }
-  let(:game) { Game.create(word: word, lives: lives) }
-  let(:correct_guess) { Guess.create(letter: "A", game: game) }
-  let(:incorrect_guess) { Guess.create(letter: "Z", game: game) }
-  let(:invalid_guess) { Guess.create(letter: 1, game: game) }
-  let(:dictionary) { Dictionary.create(title: "test dictionary") }
+  let(:game) { Game.create!(word: word, lives: lives) }
+  # let(:correct_guess) { Guess.create(letter: "A", game: game) }
+  # let(:incorrect_guess) { Guess.create(letter: "Z", game: game) }
+  # let(:invalid_guess) { Guess.create(letter: 1, game: game) }
+  let(:dictionary) { Dictionary.create!(title: "test dictionary") }
 
   before do
     dictionary.words.create!(word: "BANANA")

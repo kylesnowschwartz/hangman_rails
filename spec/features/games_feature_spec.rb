@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Game do
   let(:game) { Game.create!(lives: 1, word: "BANANA")}
-  let(:dictionary) { Dictionary.create(title: "test dictionary") }
+  let(:dictionary) { Dictionary.create!(title: "test dictionary") }
 
   before do
     dictionary.words.create!(word: "BANANA")

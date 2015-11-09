@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe GamesController, type: :controller do
   let(:lives) { 1 }
   let(:word) { "BANANA" }
-  let(:game) { Game.create(lives: lives, word: word) }
-  let(:dictionary) { Dictionary.create(title: "test dictionary") }
+  let(:game) { Game.create!(lives: lives, word: word) }
+  let(:dictionary) { Dictionary.create!(title: "test dictionary") }
 
   before do
     dictionary.words.create!(word: "BANANA")
@@ -12,7 +12,7 @@ RSpec.describe GamesController, type: :controller do
 
   describe "#index" do
     before do 
-      5.times { Game.create(lives: lives, word: word) }
+      5.times { Game.create!(lives: lives, word: word) }
       get :index
     end
 

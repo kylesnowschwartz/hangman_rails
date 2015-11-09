@@ -2,6 +2,7 @@ class GuessesController < ApplicationController
   def create
     @game = Game.find(params[:game_id])
 
+    # TODO guess submission service
     @guess = @game.guesses.new(letter: guess_params[:letter].upcase)
 
     unless @guess.save

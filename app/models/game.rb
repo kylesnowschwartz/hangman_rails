@@ -7,22 +7,15 @@ class Game < ActiveRecord::Base
   validates :word, length: { minimum: 3, too_short: "Please choose a word of 3 or more letters" }
   validate :word_must_be_in_dictionary
 
-  before_validation do
-    if word.blank?
-      self.word = Dictionary.random_word
-    end
-    word.upcase!
-  end
-
   def finished?
     zero_lives_remaining? || letters_remaining.empty?
   end
 
-  def submit_guess(guess)
+  def submit_guess(guess) # TODO delete this method and the tests
     guesses.create!(letter: guess)
   end
 
-  def correct_guess?(guess)
+  def correct_guess?(guess) # TODO Delete this method and the tests
     letters.include?(guess)
   end
 
