@@ -2,13 +2,13 @@ class GuessesController < ApplicationController
   def create
     @game = Game.find(params[:game_id])
 
-    @guess = NewGuess.new(@game, guess_params[:letter]).call
+    @guess = CreateGuess.new(@game, guess_params[:letter]).call
 
-    unless @guess.save
+    unless @guess.valid?
       flash[:alert] = @guess.errors.full_messages
     end
 
-    redirect_to game_path(@game)
+    redirect_to @game
   end
 
   def guess_params

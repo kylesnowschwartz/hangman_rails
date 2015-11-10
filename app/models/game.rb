@@ -1,6 +1,6 @@
 class Game < ActiveRecord::Base
   has_many :guesses, dependent: :destroy
-
+  # TODO perhaps there should be a many to many relationship between word and game models, so as to not save this piece of data twice
   validates_numericality_of :lives, greater_than: 0, message: "A game cannot be started with zero lives"
   validates_presence_of :lives
   validates_presence_of :word
@@ -8,10 +8,10 @@ class Game < ActiveRecord::Base
   validate :word_must_be_in_dictionary
 
   def finished?
-    zero_lives_remaining? || letters_remaining.empty?
+    lost? || letters_remaining.empty?
   end
 
-  def zero_lives_remaining?
+  def lost?
     lives_remaining <= 0
   end
 
@@ -77,7 +77,7 @@ end
   # end
 
   # def won?
-  #   if @game.zero_lives_remaining?
+  #   if @game.lost?
   #     @view.report_game_lost
   #   else
   #     @view.report_game_won

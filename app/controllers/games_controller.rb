@@ -4,9 +4,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
-    @presenter = GamePresenter.new(@game)
-    # TODO game presenter takes the game
+    @game = GamePresenter.new(Game.find(params[:id]))
   end
 
   def new
@@ -14,10 +12,10 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = NewGame.new(game_params).call
+    @game = CreateGame.new(game_params).call
 
-    if @game.save
-      redirect_to game_path(@game)
+    if @game.valid?
+      redirect_to @game
     else
       render 'new', status: 400
     end

@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe NewGame do
+RSpec.describe CreateGame do
   let(:params) { { lives: 1, word: "BANANA" } }
 
   subject do 
-    NewGame.new(params).call.save
-    Game.last
+    CreateGame.new(params).call
   end
 
   before do
@@ -23,15 +22,15 @@ RSpec.describe NewGame do
 
     it "creates a game" do
       expect(@game).to be_persisted
-      expect(Game.last).to eq(@game)
+      expect(@game).to eq(@game)
     end
 
     it "sets the word to 'BANANA'" do
-      expect(Game.last.word).to eq "BANANA"
+      expect(@game.word).to eq "BANANA"
     end
 
     it "sets the correct number of lives" do
-      expect(Game.last.lives).to eq 1
+      expect(@game.lives).to eq 1
     end
   end
 
@@ -50,11 +49,11 @@ RSpec.describe NewGame do
 
     it "creates a game" do
       expect(@game).to be_persisted
-      expect(Game.last).to eq(@game)
+      expect(@game).to eq(@game)
     end
 
     it "sets the word to 'RANDOM'" do
-      expect(Game.last.word).to eq "RANDOM"
+      expect(@game.word).to eq "RANDOM"
     end
   end
 
@@ -72,15 +71,15 @@ RSpec.describe NewGame do
 
     it "creates a game" do
       expect(@game).to be_persisted
-      expect(Game.last).to eq(@game)
+      expect(@game).to eq(@game)
     end
 
     it "sets the word to 'TOAST'" do
-      expect(Game.last.word).to eq "TOAST"
+      expect(@game.word).to eq "TOAST"
     end
 
     it "sets the correct number of lives" do
-      expect(Game.last.lives).to eq 1
+      expect(@game.lives).to eq 1
     end
   end
 end

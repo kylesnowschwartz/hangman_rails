@@ -23,7 +23,7 @@ As a user:
     So that I don't guess the same thing twice
   I want to see the board
     so that I can more easily fill in the blanks
-  I want to see the board to change after I make a valid and correct guess
+  I want to see the board change after I make a valid and correct guess
     so that I know what the fuck has happened
   I want to see my lives remaining
     so that I am incentivized to make better guesses
@@ -35,10 +35,15 @@ As a user:
     so that I can complete the unknown word 
   I would like to see a message if I make an invalid guess
     so that I learn the difference btw valid & invalid guesses
-  Today: 
 
-  then build capyara tests that goes to the index, makes a new game, and makes a guess
+Done:
 
-  TODO error if guessing the same letter twice
 
-  TODO don't accept guesses if game is finished
+
+User stories
+
+As a user
+
+ - [ ] I can sign up
+ - [X] I can play a game
+ 

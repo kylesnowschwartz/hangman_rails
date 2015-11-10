@@ -35,9 +35,6 @@ RSpec.describe GamesController, type: :controller do
 
     it { should respond_with(200) }
     it { should render_template(:show) }
-    it "assigns game to specified id to @game" do
-      expect(assigns(:game)).to eq(@game)
-    end
   end
 
   describe "#new" do

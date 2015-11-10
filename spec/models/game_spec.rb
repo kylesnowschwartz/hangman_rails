@@ -22,7 +22,7 @@ RSpec.describe Game, type: :model do
       end
 
       it "sets #board to an array of underscores" do
-        expect(GamePresenter.new(game).update_board).to eq(["_", "_", "_", "_", "_", "_"])
+        expect(GamePresenter.new(game).board).to eq(["_", "_", "_", "_", "_", "_"])
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Game, type: :model do
 
     context "with no lives remaining" do
       before do
-        NewGuess.new(game, "Z").call.save
+        CreateGuess.new(game, "Z").call.save
       end
       
       it "returns true" do
@@ -68,15 +68,15 @@ RSpec.describe Game, type: :model do
   describe "#board" do
     context "with correct letter" do
       it "replaces a blank tile" do
-        NewGuess.new(game, "B").call.save
-        expect(GamePresenter.new(game).update_board).to eq(["B", "_", "_", "_", "_", "_"])
+        CreateGuess.new(game, "B").call.save
+        expect(GamePresenter.new(game).board).to eq(["B", "_", "_", "_", "_", "_"])
       end
     end
 
     context "with incorrect letter" do
       it "does not replace a blank tile" do
-        NewGuess.new(game, "Z").call.save
-        expect(GamePresenter.new(game).update_board).to eq(["_", "_", "_", "_", "_", "_"])
+        CreateGuess.new(game, "Z").call.save
+        expect(GamePresenter.new(game).board).to eq(["_", "_", "_", "_", "_", "_"])
       end
     end
   end
@@ -84,13 +84,13 @@ RSpec.describe Game, type: :model do
   describe "#submit_guess" do
     context "with a correct guess" do
       it "increases the guess count by 1" do
-        expect{ NewGuess.new(game, "B").call.save }.to change{ Guess.count }.by 1
+        expect{ CreateGuess.new(game, "B").call.save }.to change{ Guess.count }.by 1
       end
     end
 
     context "with a incorrect guess" do
       it "does not increase the guess count" do
-        expect{ NewGuess.new(game, "Q").call.save }.to change{ Guess.count }.by 1
+        expect{ CreateGuess.new(game, "Q").call.save }.to change{ Guess.count }.by 1
       end
     end
   end

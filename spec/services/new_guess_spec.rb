@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe NewGuess do
+RSpec.describe CreateGuess do
   let(:game) { Game.create!(lives: 1, word: "BANANA") }
   let(:letter) { "B" }
 
   subject do
-    NewGuess.new(game, letter).call.save
+    CreateGuess.new(game, letter).call.save
     Guess.last
   end
 
