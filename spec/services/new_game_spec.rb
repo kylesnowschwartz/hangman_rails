@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe CreateGame do
+RSpec.describe NewGame do
   let(:params) { { lives: 1, word: "BANANA" } }
+
   subject do 
-    game = CreateGame.new(params).call.save
+    NewGame.new(params).call.save
     Game.last
   end
 

@@ -2,9 +2,9 @@
 
 <h2>Guessed Letters: <%= @game.guessed_letters %></h2>
 <h2>Lives Remaining: <%= @game.lives_remaining %></h2>
-<h2><%= @game.board %></h2>
+<h2><%= @presenter.update_board %></h2>
 
-<% if @game.zero_lives_remaining? %>
+<% if @game.finished? %>
   <h2>
     The word was: <%= @game.word %>
   </h2>

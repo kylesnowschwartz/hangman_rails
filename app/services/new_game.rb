@@ -1,4 +1,4 @@
-class CreateGame
+class NewGame
   def initialize(params)
     @lives = params[:lives]
     @word = params[:word]

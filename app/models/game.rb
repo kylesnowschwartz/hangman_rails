@@ -11,14 +11,6 @@ class Game < ActiveRecord::Base
     zero_lives_remaining? || letters_remaining.empty?
   end
 
-  def submit_guess(guess) # TODO delete this method and the tests
-    guesses.create!(letter: guess)
-  end
-
-  def correct_guess?(guess) # TODO Delete this method and the tests
-    letters.include?(guess)
-  end
-
   def zero_lives_remaining?
     lives_remaining <= 0
   end
@@ -26,53 +18,31 @@ class Game < ActiveRecord::Base
   def lives_remaining
     lives - incorrect_guesses.count
   end
+  
+  def guessed_letters
+    guesses.pluck("letter")
+  end
+
+  def letters 
+    word.upcase.chars
+  end
+
+  private
 
   def letters_remaining
     letters - guessed_letters
-  end
-
-  def board # TODO should be in presenter
-    letters.map { |letter| guessed_letters.include?(letter) ? letter : '_' }
-  end
-
-  def guessed_letters
-    guesses.pluck("letter")
   end
 
   def incorrect_guesses
     guessed_letters - letters
   end
 
-  private
-
   def word_must_be_in_dictionary
     unless Dictionary.first.words.find_by_word(word)
       errors.add(:word, "This word is not in your dictionary")
     end
   end
-
-  def letters # TODO make the model more strict on accepting the data
-    word.upcase.chars
-  end
 end
-
-  # def won?
-  #   if @game.zero_lives_remaining?
-  #     @view.report_game_lost
-  #   else
-  #     @view.report_game_won
-  #   end
-  # end
-
-  # def take_turn
-  #   guess = @view.ask_for_letter
-    
-  #   if @game.submit_guess(guess)
-  #     @view.report_correct_guess
-  #   else
-  #     @view.report_incorrect_guess
-  #   end
-  # end
 
   # examples of service model
   #command:
@@ -103,5 +73,23 @@ end
   #   end
 
   #   def lost?
+  #   end
+  # end
+
+  # def won?
+  #   if @game.zero_lives_remaining?
+  #     @view.report_game_lost
+  #   else
+  #     @view.report_game_won
+  #   end
+  # end
+
+  # def take_turn
+  #   guess = @view.ask_for_letter
+    
+  #   if @game.submit_guess(guess)
+  #     @view.report_correct_guess
+  #   else
+  #     @view.report_incorrect_guess
   #   end
   # end

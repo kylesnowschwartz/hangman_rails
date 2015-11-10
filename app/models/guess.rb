@@ -4,4 +4,8 @@ class Guess < ActiveRecord::Base
   validates :game, presence: true
   validates :letter, presence: true, length: { is: 1 }
   validates_with GuessValidator
+
+  def correct_guess?(guess)
+    game.letters.include?(guess)
+  end
 end

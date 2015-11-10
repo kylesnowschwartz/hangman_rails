@@ -5,6 +5,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @presenter = GamePresenter.new(@game)
     # TODO game presenter takes the game
   end
 
@@ -13,8 +14,8 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = CreateGame.new(game_params).call
-    
+    @game = NewGame.new(game_params).call
+
     if @game.save
       redirect_to game_path(@game)
     else
